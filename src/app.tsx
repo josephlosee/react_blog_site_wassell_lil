@@ -11,14 +11,16 @@ export function App() {
   return (
 
     <BrowserRouter>
-      <NavBar/>
-      <div className ="page-body" class="card">
-        <Routes>
-          <Route path="/" element={<HomePage/>}/>
-          <Route path="/about" element={<AboutPage/>}/>
-          <Route path="/articles" element={<ArticleListPage/>}/>
-          <Route path="/articles/:articleId" element={<ArticlePage/>}/>
-        </Routes>
+    <div className="App">  
+        <NavBar/>
+        <div id="page-body">
+          <Routes>
+            <Route path="/" element={<HomePage/>}/>
+            <Route path="/about" element={<AboutPage/>}/>
+            <Route path="/articles" element={<ArticleListPage/>}/>
+            <Route path="/articles/:articleId" element={<ArticlePage/>}/>
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   )
