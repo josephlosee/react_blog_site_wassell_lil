@@ -1,4 +1,10 @@
-const articles = [
+export type Article = {
+    name: string,
+    title: string,
+    content: string[],
+};
+
+const  articles: Article[] = [
     {
         name: 'learn-react',
         title: 'The Fastest Way to Learn React',

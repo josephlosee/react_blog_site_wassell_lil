@@ -1,4 +1,3 @@
-import { useState } from 'preact/hooks'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import './app.css'
@@ -13,7 +12,6 @@ export function App() {
 
     <BrowserRouter>
       <NavBar/>
-      <h1>Fullstack App Built with Vite + Preact</h1>
       <div className ="page-body" class="card">
         <Routes>
           <Route path="/" element={<HomePage/>}/>
