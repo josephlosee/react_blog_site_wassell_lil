@@ -9,20 +9,12 @@ import ArticlePage from './pages/ArticlePage'
 import NavBar from './NavBar'
 
 export function App() {
-  const [count, setCount] = useState(0)
-
   return (
 
     <BrowserRouter>
       <NavBar/>
       <h1>Fullstack App Built with Vite + Preact</h1>
       <div className ="page-body" class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          A simple blog app based on a LinkedInLearning Course, but in Preact and Vite
-        </p>
         <Routes>
           <Route path="/" element={<HomePage/>}/>
           <Route path="/about" element={<AboutPage/>}/>
@@ -30,9 +22,6 @@ export function App() {
           <Route path="/articles/:articleId" element={<ArticlePage/>}/>
         </Routes>
       </div>
-      {/* <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p> */}
     </BrowserRouter>
   )
 }
