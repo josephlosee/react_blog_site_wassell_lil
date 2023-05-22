@@ -1,7 +1,27 @@
-const HomePage  = () => {
-    return (
-        <h1>Welcome to my home page, where I'm building along Shaun Wassell's <a href="https://www.linkedin.com/learning/react-creating-and-hosting-a-full-stack-site-15153869/create-a-full-stack-website"><i>React: Creating and Hosting a Full Stack Site</i> course</a> on LinkedIn Learning!</h1>
-    );
-}
+const HomePage = () => (
+    <>
+    <h1>Hello, welcome to my blog!</h1>
+    <p>
+        Welcome to my blog! Here you'll find the musings, ravings, and what I'm working
+        on at the moment. 
+    </p>
+    <p>
+        Donec vel mauris lectus. Etiam nec lectus urna. Sed sodales ultrices dapibus. 
+        Nam blandit tristique risus, eget accumsan nisl interdum eu. Aenean ac accumsan 
+        nisi. Nunc vel pulvinar diam. Nam eleifend egestas viverra. Donec finibus lectus 
+        sed lorem ultricies, eget ornare leo luctus. Morbi vehicula, nulla eu tempor 
+        interdum, nibh elit congue tellus, ac vulputate urna lorem nec nisi. Morbi id 
+        consequat quam. Vivamus accumsan dui in facilisis aliquet.,
+    </p>
+    <p>
+        Etiam nec lectus urna. Sed sodales ultrices dapibus. 
+        Nam blandit tristique risus, eget accumsan nisl interdum eu. Aenean ac accumsan 
+        nisi. Nunc vel pulvinar diam. Nam eleifend egestas viverra. Donec finibus lectus 
+        sed lorem ultricies, eget ornare leo luctus. Morbi vehicula, nulla eu tempor 
+        interdum, nibh elit congue tellus, ac vulputate urna lorem nec nisi. Morbi id 
+        consequat quam. Vivamus accumsan dui in facilisis aliquet.,
+    </p>
+    </>
+);
 
 export default HomePage;
