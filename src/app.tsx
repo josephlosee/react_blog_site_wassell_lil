@@ -6,12 +6,15 @@ import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ArticleListPage from './pages/ArticlesListPage'
 import ArticlePage from './pages/ArticlePage'
+import NavBar from './NavBar'
 
 export function App() {
   const [count, setCount] = useState(0)
 
   return (
+
     <BrowserRouter>
+      <NavBar/>
       <h1>Fullstack App Built with Vite + Preact</h1>
       <div className ="page-body" class="card">
         <button onClick={() => setCount((count) => count + 1)}>
