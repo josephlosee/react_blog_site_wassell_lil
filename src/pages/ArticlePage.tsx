@@ -4,6 +4,7 @@ import axios from "axios";
 import articles from "./ArticleContent";
 import NotFoundPage from "./NotFoundPage";
 import CommentsList, {Comment} from "../components/CommentsList";
+import AddCommentForm from "../components/AddCommentForm";
 
 interface ArticleInfo {
     upvotes: number,
@@ -35,7 +36,7 @@ const ArticlePage  = () => {
     const article = articles.find(article => article.name === articleId);
     
 
-    if (article === undefined){
+    if (!article){
         return <NotFoundPage/>;
     }
 
@@ -49,7 +50,8 @@ const ArticlePage  = () => {
             {article.content.map((paragraph, index) => (
                 <p key={`${article.name}-${index}`}>{paragraph}</p>
             ))}
-            <CommentsList comments={articleInfo.comments}/>;
+            <AddCommentForm articleName={articleId!} onArticleUpdated={setArticleInfo}/>
+            <CommentsList comments={articleInfo.comments}/>
         </>
         
     );
