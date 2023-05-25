@@ -16,7 +16,7 @@ const ArticlePage  = () => {
     const params = useParams();
     const [articleInfo, setArticleInfo] = useState/*<ArticleInfo>*/({upvotes: 0, comments: []});
     
-    const [user, isLoading] = useUser();
+    const { user, isLoading } = useUser();
     if( isLoading) {
         console.log('Loading user');
     }
@@ -62,7 +62,7 @@ const ArticlePage  = () => {
                 <p key={`${article.name}-${index}`}>{paragraph}</p>
             ))}
             { user 
-                ? <AddCommentForm articleName={articleId} onArticleUpdated={setArticleInfo}/>
+                ? <AddCommentForm articleName={articleId!} onArticleUpdated={setArticleInfo}/>
                 : <button>Log in to leave a comment!</button>
             }
             <CommentsList comments={articleInfo.comments}/>
