@@ -3,21 +3,23 @@ import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import articles from "./ArticleContent";
 import NotFoundPage from "./NotFoundPage";
-import CommentsList, {Comment} from "../components/CommentsList";
+import CommentsList from "../components/CommentsList";
 import AddCommentForm from "../components/AddCommentForm";
 import useUser from "../hooks/useUser";
 
-interface ArticleInfo {
-    upvotes: number,
-    comments: Comment[]
-}
+// interface ArticleInfo {
+//     upvotes: number,
+//     comments: Comment[]
+// }
 
 const ArticlePage  = () => {
     const params = useParams();
-    const [articleInfo, setArticleInfo] = useState<ArticleInfo>({upvotes: 0, comments: [] as Comment[]});
+    const [articleInfo, setArticleInfo] = useState/*<ArticleInfo>*/({upvotes: 0, comments: []});
     
     const [user, isLoading] = useUser();
-    
+    if( isLoading) {
+        console.log('Loading user');
+    }
     const articleId = params.articleId;
     // can also be const {articleId} = useParams();
 
@@ -29,7 +31,7 @@ const ArticlePage  = () => {
     useEffect(() => {
         const loadArticleInfo = async () => {
             const response = await axios.get(`/api/articles/${articleId}`);
-            const newArticleInfo = response.data as ArticleInfo;
+            const newArticleInfo = response.data;// as ArticleInfo;
             setArticleInfo(newArticleInfo);
         }
         loadArticleInfo();
@@ -51,7 +53,7 @@ const ArticlePage  = () => {
             <div className="upvotes-section">
                 { user 
                     ? <button onClick={addUpvote}>Upvote</button> 
-                    : <button onClick={()=>navigate('/login')}>Log in to vote!</button> 
+                    : <button >Log in to vote!</button> 
                 }
                 
                 <p>This article has {articleInfo.upvotes} upvote(s).</p>
@@ -60,13 +62,13 @@ const ArticlePage  = () => {
                 <p key={`${article.name}-${index}`}>{paragraph}</p>
             ))}
             { user 
-                ? <AddCommentForm articleName={articleId!} onArticleUpdated={setArticleInfo}/>
-                : <button onClick={()=>navigate('/login')}>Log in to leave a comment!</button>
+                ? <AddCommentForm articleName={articleId} onArticleUpdated={setArticleInfo}/>
+                : <button>Log in to leave a comment!</button>
             }
             <CommentsList comments={articleInfo.comments}/>
         </>
         
     );
 }
-
+// onClick={()=>{navigate('/login')}}
 export default ArticlePage;
