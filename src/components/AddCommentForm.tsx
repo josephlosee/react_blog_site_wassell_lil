@@ -1,7 +1,6 @@
-import { useState } from "preact/hooks";
-import { TargetedEvent } from "preact/compat";
-
+import { useState } from "react";
 import axios from "axios";
+import { ChangeEvent } from "react";
 
 interface AddCommentFormProps {
     articleName: string
@@ -28,7 +27,7 @@ const AddCommentForm = ({articleName, onArticleUpdated}: AddCommentFormProps)  =
             <label>
                 Name:
                 <input value={name} 
-                    onChange={(e: TargetedEvent) => {
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         if (e)
                             setName((e.target as HTMLInputElement).value)
                     }} 
@@ -36,9 +35,9 @@ const AddCommentForm = ({articleName, onArticleUpdated}: AddCommentFormProps)  =
             </label>
             <label>
                 Comment:
-                <textarea rows={4} cols={50} value={commentText} onChange={(e: TargetedEvent) => {
+                <textarea rows={4} cols={50} value={commentText} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                     if (e)
-                        setCommentText((e.target as HTMLInputElement).value);
+                        setCommentText((e.target as HTMLTextAreaElement).value);
                 }}/>
                 
             </label>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import articles from "./ArticleContent";

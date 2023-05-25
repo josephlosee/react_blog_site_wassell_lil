@@ -1,9 +1,10 @@
-// interface LoginPageProps {
-
-import { useState } from "preact/hooks";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-// }
+
+interface ErrorWithMessage extends Error {
+    message: string
+}
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ const LoginPage = () => {
             await signInWithEmailAndPassword(getAuth(), email, password);
             navigate('/articles');
         } catch (e) {
-            setError(e.message);
+            setError((e as ErrorWithMessage).message);
         }
 
     }
