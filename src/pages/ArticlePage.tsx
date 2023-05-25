@@ -1,10 +1,11 @@
 import { useState, useEffect } from "preact/hooks";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import articles from "./ArticleContent";
 import NotFoundPage from "./NotFoundPage";
 import CommentsList, {Comment} from "../components/CommentsList";
 import AddCommentForm from "../components/AddCommentForm";
+import useUser from "../hooks/useUser";
 
 interface ArticleInfo {
     upvotes: number,
@@ -14,6 +15,8 @@ interface ArticleInfo {
 const ArticlePage  = () => {
     const params = useParams();
     const [articleInfo, setArticleInfo] = useState<ArticleInfo>({upvotes: 0, comments: [] as Comment[]});
+    
+    const [user, isLoading] = useUser();
     
     const articleId = params.articleId;
     // can also be const {articleId} = useParams();
@@ -40,17 +43,26 @@ const ArticlePage  = () => {
         return <NotFoundPage/>;
     }
 
+    const navigate = useNavigate();
+
     return (
         <>
             <h1>{article.title}</h1>
             <div className="upvotes-section">
-                <button onClick={addUpvote}>Upvote</button>
+                { user 
+                    ? <button onClick={addUpvote}>Upvote</button> 
+                    : <button onClick={()=>navigate('/login')}>Log in to vote!</button> 
+                }
+                
                 <p>This article has {articleInfo.upvotes} upvote(s).</p>
             </div>
             {article.content.map((paragraph, index) => (
                 <p key={`${article.name}-${index}`}>{paragraph}</p>
             ))}
-            <AddCommentForm articleName={articleId!} onArticleUpdated={setArticleInfo}/>
+            { user 
+                ? <AddCommentForm articleName={articleId!} onArticleUpdated={setArticleInfo}/>
+                : <button onClick={()=>navigate('/login')}>Log in to leave a comment!</button>
+            }
             <CommentsList comments={articleInfo.comments}/>
         </>
         
