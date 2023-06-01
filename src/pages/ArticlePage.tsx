@@ -3,13 +3,13 @@ import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import articles from "./ArticleContent";
 import NotFoundPage from "./NotFoundPage";
-import CommentsList from "../components/CommentsList";
+import CommentsList, {ArticleComment} from "../components/CommentsList";
 import AddCommentForm from "../components/AddCommentForm";
 import useUser from "../hooks/useUser";
 
 interface ArticleInfo {
     upvotes: number,
-    comments: Comment[],
+    comments: ArticleComment[],
     canUpvote?: boolean,
 }
 

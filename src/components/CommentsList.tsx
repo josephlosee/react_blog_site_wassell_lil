@@ -1,10 +1,10 @@
-export interface Comment {
+export interface ArticleComment {
     text: string,
     postedBy: string
 }
 
 export interface CommentsListProps {
-    comments: Comment[]
+    comments: ArticleComment[]
 }
 
 const CommentsList = ({comments}: CommentsListProps) => {
