@@ -2,9 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-interface ErrorWithMessage extends Error {
-    message: string
-}
+import { ErrorWithMessage } from "../infrastructure/AuthErrors";
+
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
