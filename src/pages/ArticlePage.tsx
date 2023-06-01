@@ -7,14 +7,14 @@ import CommentsList from "../components/CommentsList";
 import AddCommentForm from "../components/AddCommentForm";
 import useUser from "../hooks/useUser";
 
-// interface ArticleInfo {
-//     upvotes: number,
-//     comments: Comment[]
-// }
+interface ArticleInfo {
+    upvotes: number,
+    comments: Comment[]
+}
 
 const ArticlePage  = () => {
     const params = useParams();
-    const [articleInfo, setArticleInfo] = useState/*<ArticleInfo>*/({upvotes: 0, comments: []});
+    const [articleInfo, setArticleInfo] = useState<ArticleInfo>({upvotes: 0, comments: []});
     
     const { user, isLoading } = useUser();
     if( isLoading) {
@@ -24,13 +24,23 @@ const ArticlePage  = () => {
     // can also be const {articleId} = useParams();
 
     const addUpvote = async() => {
-        const response = await axios.put(`/api/articles/${articleId}/upvote`);
+        const token = user && await user?.getIdToken();
+            const headers = token ? {
+                authtoken: token,
+            } : {};
+        const response = await axios.put(`/api/articles/${articleId}/upvote`, null, {headers});
         setArticleInfo(response.data);
     }
 
     useEffect(() => {
         const loadArticleInfo = async () => {
-            const response = await axios.get(`/api/articles/${articleId}`);
+            const token = user && await user?.getIdToken();
+            const headers = token ? {
+                authtoken: token,
+            } : {};
+            const response = await axios.get(`/api/articles/${articleId}`, {
+                headers,
+            });
             const newArticleInfo = response.data;// as ArticleInfo;
             setArticleInfo(newArticleInfo);
         }
