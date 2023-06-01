@@ -1,4 +1,5 @@
-import { render } from 'preact'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import { App } from './app.tsx'
 import './index.css'
 
@@ -26,6 +27,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 
-render(<App />, document.getElementById('app') as HTMLElement)
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)

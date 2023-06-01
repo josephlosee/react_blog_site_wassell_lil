@@ -1,7 +1,8 @@
-import { useState } from "preact/hooks";
-import { TargetedEvent } from "preact/compat";
-
+import { useState } from "react";
 import axios from "axios";
+import { ChangeEvent } from "react";
+
+import useUser from "../hooks/useUser";
 
 interface AddCommentFormProps {
     articleName: string
@@ -9,39 +10,31 @@ interface AddCommentFormProps {
 }
 
 const AddCommentForm = ({articleName, onArticleUpdated}: AddCommentFormProps)  => {
-    const [name, setName] = useState('');
+    // const [name, setName] = useState('');
     const [commentText, setCommentText] = useState('');
+    const {user, isLoading} = useUser();
 
     const addComment = async() => {
+        const token = user && await user?.getIdToken();
+        const headers = token ? {
+            authtoken: token,
+        } : {};
+
         const response = await axios.post(`/api/articles/${articleName}/comments`, {
-            postedBy: name,
             text: commentText,
-        });
+        }, {headers});
         const updatedArticle = response.data;
         onArticleUpdated(updatedArticle);
-        setName('');
         setCommentText('');
     }
     return (
         <div id="add-comment-form">
             <h3> Add a Comment</h3>
-            <label>
-                Name:
-                <input value={name} 
-                    onChange={(e: TargetedEvent) => {
-                        if (e)
-                            setName((e.target as HTMLInputElement).value)
-                    }} 
-                    type="text" />
-            </label>
-            <label>
-                Comment:
-                <textarea rows={4} cols={50} value={commentText} onChange={(e: TargetedEvent) => {
+            <p>You are posting as {user?.email}</p>
+                <textarea rows={4} cols={50} value={commentText} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                     if (e)
-                        setCommentText((e.target as HTMLInputElement).value);
+                        setCommentText((e.target as HTMLTextAreaElement).value);
                 }}/>
-                
-            </label>
             <button onClick={addComment}>Add Comment</button>
         </div>
     )
