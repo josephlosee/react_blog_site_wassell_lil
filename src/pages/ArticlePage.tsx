@@ -9,13 +9,14 @@ import useUser from "../hooks/useUser";
 
 interface ArticleInfo {
     upvotes: number,
-    comments: Comment[]
+    comments: Comment[],
+    canUpvote?: boolean,
 }
 
 const ArticlePage  = () => {
     const params = useParams();
     const [articleInfo, setArticleInfo] = useState<ArticleInfo>({upvotes: 0, comments: []});
-    
+    const { canUpvote } = articleInfo;
     const { user, isLoading } = useUser();
     if( isLoading) {
         console.log('Loading user');
@@ -44,8 +45,11 @@ const ArticlePage  = () => {
             const newArticleInfo = response.data;// as ArticleInfo;
             setArticleInfo(newArticleInfo);
         }
-        loadArticleInfo();
-    }, [articleId]);
+        if (isLoading) {
+            loadArticleInfo();
+        }
+        
+    }, [isLoading, user]);
 
     // console.log(articleInfo.comments);
     const article = articles.find(article => article.name === articleId);
@@ -62,7 +66,7 @@ const ArticlePage  = () => {
             <h1>{article.title}</h1>
             <div className="upvotes-section">
                 { user 
-                    ? <button onClick={addUpvote}>Upvote</button> 
+                    ? <button onClick={addUpvote}>{canUpvote ? 'Upvote' : 'Already Upvoted'}</button> 
                     : <button >Log in to vote!</button> 
                 }
                 
